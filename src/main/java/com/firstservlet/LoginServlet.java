@@ -14,8 +14,8 @@ import java.io.PrintWriter;
         description = "Login Servlet Testing",
         urlPatterns = { "/LoginServlet" },
         initParams = {
-                @WebInitParam(name = "user", value = "Ashish"),
-                @WebInitParam(name = "password", value = "Ashishsahu@1")
+                @WebInitParam(name = "user", value = "Naval"),
+                @WebInitParam(name = "password", value = "Naval@95")
         }
 )
 
@@ -33,7 +33,7 @@ public class LoginServlet extends HttpServlet{
         String password = getServletConfig().getInitParameter("password");
 
         // UC3 : Validating name of the user
-        String nameValidate = "^[A-Z][a-z]{5}";
+        String nameValidate = "^[A-Z][a-z]{5,}";
 
         // UC4 : Validating password of the user
         String passwordValidate = "^(?=.[0-9])(?=[^@#$%^&+=][@#$%^&+=][^@#$%^&+=]$)(?=.[a-z])(?=.*[A-Z]).{8,}$";
