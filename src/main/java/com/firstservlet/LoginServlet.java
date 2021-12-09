@@ -12,31 +12,38 @@ import java.io.PrintWriter;
 
 @WebServlet(
         description = "Login Servlet Testing",
-        urlPatterns = {"/LoginServlet"},
+        urlPatterns = { "/LoginServlet" },
         initParams = {
                 @WebInitParam(name = "user", value = "Naval"),
                 @WebInitParam(name = "password", value = "Naval")
         }
 )
-public class LoginServlet extends HttpServlet {
+
+public class LoginServlet extends HttpServlet{
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // get request param for usr and password
-        String user=req.getParameter("Naval");
-        String pwd=req.getParameter("Naval");
-        //get servlet config init params
-        String userID=getServletConfig().getInitParameter("user");
-        String password=getServletConfig().getInitParameter("password");
-        if (userID.equals(user) && password.equals(pwd)){
-            req.setAttribute("user",user);
-            req.getRequestDispatcher("LoginSuccess.jsp" ).forward(req,resp);
 
+        //get request parameters for user ID and password
+        String user = req.getParameter("user");
+        String pwd = req.getParameter("pwd");
+
+        // get servlet config init params
+        String userID = getServletConfig().getInitParameter("user");
+        String password = getServletConfig().getInitParameter("password");
+
+
+        String nameValidate = "^[A-Z][a-z]{2,}";
+        if(userID.equals(user) && userID.matches(nameValidate) && password.equals(pwd)) {
+            req.setAttribute("user",user);
+            req.getRequestDispatcher("LoginSuccess.jsp").forward(req, resp);
+        } else {
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
+            PrintWriter out  = resp.getWriter();
+            out.println("<font color = red> Either username or password is wrong</font>");
+            rd.include(req, resp);
         }
-        else {
-            RequestDispatcher rd=getServletContext().getRequestDispatcher("/login.html");
-            PrintWriter out= resp.getWriter();
-            out.println("<font color=red> Either User Name Or Password is Wrong </font> ");
-            rd.include(req,resp);
-        }
+
     }
+
 }
