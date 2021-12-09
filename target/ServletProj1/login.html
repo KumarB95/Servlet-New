@@ -3,11 +3,16 @@
         "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
-    <title>Login success page</title>
+    <meta charset=US-ASCII">
+    <title>Login page</title>
 </head>
 <body>
-<h3>Hi <%= request.getAttribute("user")%>, Login Successful.</h3>
-<a href="login.html">Login page</a>
+<FORM action="LoginServlet" method="get">
+    Username:<input type="text" name="user">
+    <br>
+    Password:<input type="Password" name="pwd">
+    <br>
+    <input type="submit" value="Login">
+</FORM>
 </body>
 </html>

@@ -1,13 +1,12 @@
 package com.firstservlet;
 
-import jakarta.servlet.RequestDispatcher;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebInitParam;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebInitParam;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -15,28 +14,29 @@ import java.io.PrintWriter;
         description = "Login Servlet Testing",
         urlPatterns = {"/LoginServlet"},
         initParams = {
-                @WebInitParam(name="name", value="Naval"),
-                @WebInitParam(name="password" , value="Naval" )
+                @WebInitParam(name = "user", value = "Naval"),
+                @WebInitParam(name = "password", value = "Naval")
         }
 )
-
 public class LoginServlet extends HttpServlet {
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // get Request parameters for userId and Password
-        String user = request.getParameter("user");
-        String pwd = request.getParameter("pwd");
-        // get servlet configuration init parameters
-        String userId = getServletConfig().getInitParameter("user");
-        String password = getServletConfig().getInitParameter("password");
-        if (userId.equals(user) && password.equals(pwd)) {
-            request.setAttribute("user", user);
-            request.getRequestDispatcher("LoginSuccess.jsp").forward(request, response);
-        } else {
-            RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
-            PrintWriter out = response.getWriter();
-            out.println("<font colour=red> Either User name or Password is Wrong</font>");
-            rd.include(request, response);
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // get request param for usr and password
+        String user=req.getParameter("Naval");
+        String pwd=req.getParameter("Naval");
+        //get servlet config init params
+        String userID=getServletConfig().getInitParameter("user");
+        String password=getServletConfig().getInitParameter("password");
+        if (userID.equals(user) && password.equals(pwd)){
+            req.setAttribute("user",user);
+            req.getRequestDispatcher("LoginSuccess.jsp" ).forward(req,resp);
+
+        }
+        else {
+            RequestDispatcher rd=getServletContext().getRequestDispatcher("/login.html");
+            PrintWriter out= resp.getWriter();
+            out.println("<font color=red> Either User Name Or Password is Wrong </font> ");
+            rd.include(req,resp);
         }
     }
 }
